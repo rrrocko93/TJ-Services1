@@ -5,9 +5,8 @@ export default {
     extend: {
       colors: {
         tj: {
-          gold: '#d4af37',
-          'gold-dark': '#b8960c',
-          amber: '#f59e0b',
+          silver: '#c0c0c0',
+          'silver-dark': '#808080',
         },
       },
     },
