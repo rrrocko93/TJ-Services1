@@ -390,53 +390,6 @@ Deno.serve(async (req: Request) => {
       }
     }
 
-    // ---------- UPLOAD (admin) ----------
-    if (resource === "upload" && req.method === "POST") {
-      if (!isAdmin) return errorResponse("Forbidden", 403);
-
-      const body = await req.json().catch(() => null);
-      if (!body) return errorResponse("Invalid body", 400);
-
-      const { filename, content_type, data } = body as {
-        filename?: string;
-        content_type?: string;
-        data?: string;
-      };
-
-      if (!filename || !content_type || !data) {
-        return errorResponse("filename, content_type, and data are required", 400);
-      }
-      if (!content_type.startsWith("image/")) {
-        return errorResponse("Only image uploads are allowed", 400);
-      }
-
-      const ext = filename.includes(".") ? filename.split(".").pop()!.toLowerCase() : "jpg";
-      const allowedExt = ["jpg", "jpeg", "png", "webp", "gif", "heic", "heif"];
-      if (!allowedExt.includes(ext)) {
-        return errorResponse("Unsupported image type", 400);
-      }
-
-      let bytes: Uint8Array;
-      try {
-        bytes = Uint8Array.from(atob(data), (c) => c.charCodeAt(0));
-      } catch {
-        return errorResponse("Invalid image data", 400);
-      }
-      if (bytes.length > 5 * 1024 * 1024) {
-        return errorResponse("Image must be 5 MB or smaller", 400);
-      }
-
-      const path = `${crypto.randomUUID()}.${ext}`;
-      const { error: uploadError } = await supabase.storage
-        .from("service-photos")
-        .upload(path, bytes, { contentType: content_type, upsert: false });
-
-      if (uploadError) return errorResponse(uploadError.message, 500);
-
-      const { data: urlData } = supabase.storage.from("service-photos").getPublicUrl(path);
-      return jsonResponse({ url: urlData.publicUrl, path });
-    }
-
     // ---------- LOYALTY ----------
     if (resource === "loyalty") {
       // GET /loyalty?customer_id=...  (admin: any; customer: own only)

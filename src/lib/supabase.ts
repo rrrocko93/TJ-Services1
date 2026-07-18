@@ -47,21 +47,3 @@ export async function tjApi<T = any>(
   if (!res.ok) throw new Error(json.error || `Request failed (${res.status})`);
   return json as T;
 }
-
-export async function tjUploadImage(file: File, token: string): Promise<{ url: string }> {
-  const buffer = await file.arrayBuffer();
-  const bytes = new Uint8Array(buffer);
-  let binary = "";
-  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
-  const data = btoa(binary);
-
-  return tjApi<{ url: string }>("upload", {
-    method: "POST",
-    token,
-    body: {
-      filename: file.name,
-      content_type: file.type || "image/jpeg",
-      data,
-    },
-  });
-}

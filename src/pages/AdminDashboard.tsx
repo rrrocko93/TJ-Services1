@@ -3,7 +3,6 @@ import { useAuth } from "../lib/auth";
 import { tjApi } from "../lib/supabase";
 import type { Customer, Vehicle, ServiceRecord, DashboardStats } from "../lib/types";
 import { Card, Badge, Button, Modal, Field, Input, Textarea, EmptyState, Spinner } from "../components/ui";
-import { PhotoPicker } from "../components/PhotoPicker";
 import {
   Car,
   Wrench,
@@ -72,12 +71,12 @@ export default function AdminDashboard() {
       {/* Sidebar */}
       <aside className="lg:w-60 lg:min-h-screen bg-[#0c0c0c] border-b lg:border-b-0 lg:border-r border-neutral-900 flex lg:flex-col">
         <div className="p-4 flex items-center gap-2.5 lg:border-b border-neutral-900">
-          <div className="w-9 h-9 rounded-lg bg-tj-gold flex items-center justify-center">
+          <div className="w-9 h-9 rounded-lg bg-red-600 flex items-center justify-center">
             <Car className="w-5 h-5 text-white" />
           </div>
           <div>
             <div className="font-display text-base font-bold tracking-wider leading-none">TJ SERVICES</div>
-            <div className="text-[9px] tracking-[0.25em] text-amber-500 uppercase">Admin Console</div>
+            <div className="text-[9px] tracking-[0.25em] text-red-500 uppercase">Admin Console</div>
           </div>
         </div>
 
@@ -110,7 +109,7 @@ export default function AdminDashboard() {
           <DashboardView stats={stats} customers={customers || []} onOpenCustomer={(c) => { setSelectedCustomer(c); setTab("customer"); }} onNewCustomer={() => setShowNewCustomer(true)} />
         )}
         {tab === "dashboard" && !stats && (
-          <div className="flex items-center justify-center h-64"><Spinner className="w-8 h-8 text-tj-gold" /></div>
+          <div className="flex items-center justify-center h-64"><Spinner className="w-8 h-8 text-red-600" /></div>
         )}
         {tab === "customers" && (
           <CustomersView
@@ -152,7 +151,7 @@ function NavBtn({ active, onClick, icon, children }: { active: boolean; onClick:
     <button
       onClick={onClick}
       className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium transition flex-1 lg:flex-none text-left ${
-        active ? "bg-tj-gold text-white" : "text-neutral-400 hover:text-white hover:bg-white/5"
+        active ? "bg-red-600 text-white" : "text-neutral-400 hover:text-white hover:bg-white/5"
       }`}
     >
       {icon}
@@ -194,7 +193,7 @@ function DashboardView({ stats, customers, onOpenCustomer, onNewCustomer }: {
           {recent.map((c) => (
             <Card key={c.id} className="p-4 flex items-center justify-between" hover>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-tj-gold/15 flex items-center justify-center font-display font-bold text-amber-400">
+                <div className="w-10 h-10 rounded-full bg-red-600/15 flex items-center justify-center font-display font-bold text-red-400">
                   {c.name.charAt(0).toUpperCase()}
                 </div>
                 <div>
@@ -212,7 +211,7 @@ function DashboardView({ stats, customers, onOpenCustomer, onNewCustomer }: {
 }
 
 function StatBox({ icon, label, value, color }: { icon: React.ReactNode; label: string; value: number; color?: "green" | "amber" }) {
-  const colorClass = color === "green" ? "text-green-500" : color === "amber" ? "text-amber-500" : "text-amber-500";
+  const colorClass = color === "green" ? "text-green-500" : color === "amber" ? "text-amber-500" : "text-red-500";
   return (
     <Card className="p-4 animate-fade-in-up">
       <div className={`mb-1.5 ${colorClass}`}>{icon}</div>
@@ -256,7 +255,7 @@ function CustomersView({ customers, loading, search, setSearch, onOpen, onNew, o
       </div>
 
       {loading ? (
-        <div className="flex justify-center py-12"><Spinner className="w-8 h-8 text-tj-gold" /></div>
+        <div className="flex justify-center py-12"><Spinner className="w-8 h-8 text-red-600" /></div>
       ) : customers.length === 0 ? (
         <Card className="p-6"><EmptyState icon={<Users className="w-10 h-10" />} title="No customers found" /></Card>
       ) : (
@@ -265,7 +264,7 @@ function CustomersView({ customers, loading, search, setSearch, onOpen, onNew, o
             <Card key={c.id} className="p-4" hover>
               <div className="flex items-start justify-between gap-3">
                 <button onClick={() => onOpen(c)} className="flex items-start gap-3 text-left flex-1 min-w-0">
-                  <div className="w-11 h-11 rounded-full bg-tj-gold/15 flex items-center justify-center font-display font-bold text-amber-400 shrink-0">
+                  <div className="w-11 h-11 rounded-full bg-red-600/15 flex items-center justify-center font-display font-bold text-red-400 shrink-0">
                     {c.name.charAt(0).toUpperCase()}
                   </div>
                   <div className="min-w-0">
@@ -273,7 +272,7 @@ function CustomersView({ customers, loading, search, setSearch, onOpen, onNew, o
                     <div className="text-xs text-neutral-500 font-mono">{c.client_id}</div>
                     <div className="flex gap-2 mt-1.5 flex-wrap">
                       <Badge>{c.vehicle_count || 0} vehicles</Badge>
-                      <Badge color="amber">{c.completed_services || 0} services</Badge>
+                      <Badge color="red">{c.completed_services || 0} services</Badge>
                     </div>
                   </div>
                 </button>
@@ -329,7 +328,7 @@ function CustomerDetail({ customer, token, onBack, onChanged }: {
       <Card className="p-5 mb-6">
         <div className="flex items-start justify-between flex-wrap gap-4">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-xl bg-tj-gold/15 flex items-center justify-center font-display text-2xl font-bold text-amber-400">
+            <div className="w-14 h-14 rounded-xl bg-red-600/15 flex items-center justify-center font-display text-2xl font-bold text-red-400">
               {customer.name.charAt(0).toUpperCase()}
             </div>
             <div>
@@ -356,14 +355,14 @@ function CustomerDetail({ customer, token, onBack, onChanged }: {
 
       {/* Loyalty mini */}
       <Card className="p-4 mb-6 flex items-center gap-4">
-        <Award className="w-8 h-8 text-amber-500" />
+        <Award className="w-8 h-8 text-red-500" />
         <div className="flex-1">
           <div className="text-sm font-semibold">Loyalty Progress</div>
           <div className="text-xs text-neutral-500">{completed} / {customer.loyalty_target} services completed</div>
         </div>
         <div className="flex gap-1">
           {Array.from({ length: customer.loyalty_target }).map((_, i) => (
-            <div key={i} className={`w-2.5 h-2.5 rounded-full ${i < completed ? "bg-tj-gold" : "bg-neutral-800"}`} />
+            <div key={i} className={`w-2.5 h-2.5 rounded-full ${i < completed ? "bg-red-600" : "bg-neutral-800"}`} />
           ))}
         </div>
       </Card>
@@ -371,12 +370,12 @@ function CustomerDetail({ customer, token, onBack, onChanged }: {
       {/* Vehicles */}
       <div className="flex items-center justify-between mb-3">
         <h2 className="font-display text-xl font-bold uppercase tracking-wide flex items-center gap-2">
-          <Car className="w-5 h-5 text-amber-500" /> Vehicles
+          <Car className="w-5 h-5 text-red-500" /> Vehicles
         </h2>
         <Button variant="outline" onClick={() => setShowVehicleForm("new")}><Plus className="w-4 h-4" /> Add Vehicle</Button>
       </div>
       {!vehicles ? (
-        <div className="flex justify-center py-8"><Spinner className="w-6 h-6 text-tj-gold" /></div>
+        <div className="flex justify-center py-8"><Spinner className="w-6 h-6 text-red-600" /></div>
       ) : vehicles.length === 0 ? (
         <Card className="p-6"><EmptyState icon={<Car className="w-10 h-10" />} title="No vehicles" /></Card>
       ) : (
@@ -407,12 +406,12 @@ function CustomerDetail({ customer, token, onBack, onChanged }: {
       {/* Services */}
       <div className="flex items-center justify-between mb-3">
         <h2 className="font-display text-xl font-bold uppercase tracking-wide flex items-center gap-2">
-          <Wrench className="w-5 h-5 text-amber-500" /> Service Records
+          <Wrench className="w-5 h-5 text-red-500" /> Service Records
         </h2>
         <Button variant="outline" onClick={() => setShowServiceForm("new")}><Plus className="w-4 h-4" /> Add Service</Button>
       </div>
       {!services ? (
-        <div className="flex justify-center py-8"><Spinner className="w-6 h-6 text-tj-gold" /></div>
+        <div className="flex justify-center py-8"><Spinner className="w-6 h-6 text-red-600" /></div>
       ) : services.length === 0 ? (
         <Card className="p-6"><EmptyState icon={<Wrench className="w-10 h-10" />} title="No services yet" /></Card>
       ) : (
@@ -506,21 +505,21 @@ function ServiceRow({ service, vehicleName, onEdit, onComplete, token, onChanged
           </button>
         </div>
       </div>
-      <CompleteServiceModal open={completeOpen} onClose={() => setCompleteOpen(false)} service={service} token={token} onComplete={async (n, r, m, p, nd, nm) => { await onComplete(n, r, m, p, nd, nm); setCompleteOpen(false); }} />
+      <CompleteServiceModal open={completeOpen} onClose={() => setCompleteOpen(false)} service={service} onComplete={async (n, r, m, p, nd, nm) => { await onComplete(n, r, m, p, nd, nm); setCompleteOpen(false); }} />
     </Card>
   );
 }
 
-function CompleteServiceModal({ open, onClose, service, token, onComplete }: {
+function CompleteServiceModal({ open, onClose, service, onComplete }: {
   open: boolean;
   onClose: () => void;
   service: ServiceRecord;
-  token: string;
   onComplete: (notes: string, recommendations: string, mileage: number | null, photos: string[], nextDate: string | null, nextMileage: number | null) => Promise<void>;
 }) {
   const [notes, setNotes] = useState(service.notes || "");
   const [recs, setRecs] = useState(service.recommendations || "");
   const [mileage, setMileage] = useState(service.mileage?.toString() || "");
+  const [photoUrl, setPhotoUrl] = useState("");
   const [photos, setPhotos] = useState<string[]>(service.photo_urls || []);
   const [nextDate, setNextDate] = useState(service.next_service_date || "");
   const [nextMileage, setNextMileage] = useState(service.next_service_mileage?.toString() || "");
@@ -567,13 +566,22 @@ function CompleteServiceModal({ open, onClose, service, token, onComplete }: {
         <Field label="Next Recommended Mileage">
           <Input type="number" value={nextMileage} onChange={(e) => setNextMileage(e.target.value)} placeholder="e.g. 58000" />
         </Field>
-        <PhotoPicker
-          photos={photos}
-          onChange={setPhotos}
-          token={token}
-          label="Service Photos"
-          hint="Add photos of the work performed — paste a link or upload directly."
-        />
+        <Field label="Service Photos (URLs)" hint="Add image URLs (e.g. hosted image links).">
+          <div className="flex gap-2">
+            <Input value={photoUrl} onChange={(e) => setPhotoUrl(e.target.value)} placeholder="https://..." />
+            <Button variant="outline" onClick={() => { if (photoUrl) { setPhotos([...photos, photoUrl]); setPhotoUrl(""); } }}><Plus className="w-4 h-4" /></Button>
+          </div>
+          {photos.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-2">
+              {photos.map((p, i) => (
+                <div key={i} className="relative">
+                  <img src={p} alt="" className="w-16 h-16 rounded-md object-cover border border-neutral-800" />
+                  <button onClick={() => setPhotos(photos.filter((_, j) => j !== i))} className="absolute -top-1 -right-1 bg-red-600 rounded-full p-0.5"><X className="w-3 h-3 text-white" /></button>
+                </div>
+              ))}
+            </div>
+          )}
+        </Field>
         <div className="flex justify-end gap-2 pt-2">
           <Button variant="ghost" onClick={onClose}>Cancel</Button>
           <Button onClick={submit} loading={saving}><CheckCircle2 className="w-4 h-4" /> Complete Service</Button>
@@ -603,6 +611,7 @@ function ServiceFormModal({ open, service, vehicles, customerId, token, onClose,
   const [nextDate, setNextDate] = useState(service?.next_service_date || "");
   const [nextMileage, setNextMileage] = useState(service?.next_service_mileage?.toString() || "");
   const [photos, setPhotos] = useState<string[]>(service?.photo_urls || []);
+  const [photoUrl, setPhotoUrl] = useState("");
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -683,13 +692,22 @@ function ServiceFormModal({ open, service, vehicles, customerId, token, onClose,
             <Input type="number" value={nextMileage} onChange={(e) => setNextMileage(e.target.value)} />
           </Field>
         </div>
-        <PhotoPicker
-          photos={photos}
-          onChange={setPhotos}
-          token={token}
-          label="Service Photos"
-          hint="Document the service with photos — paste a link or upload directly."
-        />
+        <Field label="Photos (URLs)">
+          <div className="flex gap-2">
+            <Input value={photoUrl} onChange={(e) => setPhotoUrl(e.target.value)} placeholder="https://..." />
+            <Button variant="outline" onClick={() => { if (photoUrl) { setPhotos([...photos, photoUrl]); setPhotoUrl(""); } }}><Plus className="w-4 h-4" /></Button>
+          </div>
+          {photos.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-2">
+              {photos.map((p, i) => (
+                <div key={i} className="relative">
+                  <img src={p} alt="" className="w-16 h-16 rounded-md object-cover border border-neutral-800" />
+                  <button onClick={() => setPhotos(photos.filter((_, j) => j !== i))} className="absolute -top-1 -right-1 bg-red-600 rounded-full p-0.5"><X className="w-3 h-3 text-white" /></button>
+                </div>
+              ))}
+            </div>
+          )}
+        </Field>
         <div className="flex justify-end gap-2 pt-2">
           <Button variant="ghost" onClick={onClose}>Cancel</Button>
           <Button onClick={submit} loading={saving}>{isEdit ? "Save Changes" : "Add Service"}</Button>

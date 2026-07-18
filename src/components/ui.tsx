@@ -27,7 +27,7 @@ export function Button({
   const variants = {
     primary: "btn-primary",
     ghost: "bg-transparent text-neutral-300 hover:bg-white/5",
-    outline: "border border-neutral-700 text-neutral-200 hover:border-tj-gold hover:text-white",
+    outline: "border border-neutral-700 text-neutral-200 hover:border-red-600 hover:text-white",
     danger: "bg-red-900/30 text-red-300 border border-red-800 hover:bg-red-900/50",
   };
   return (
@@ -66,11 +66,11 @@ export function Badge({
   color = "neutral",
 }: {
   children: ReactNode;
-  color?: "neutral" | "gold" | "green" | "amber" | "blue";
+  color?: "neutral" | "red" | "green" | "amber" | "blue";
 }) {
   const colors = {
     neutral: "bg-neutral-800 text-neutral-300",
-    gold: "bg-tj-gold/15 text-amber-400 border border-amber-800/50",
+    red: "bg-red-600/15 text-red-400 border border-red-800/50",
     green: "bg-green-600/15 text-green-400 border border-green-800/50",
     amber: "bg-amber-600/15 text-amber-400 border border-amber-800/50",
     blue: "bg-blue-600/15 text-blue-400 border border-blue-800/50",
