@@ -29,7 +29,7 @@ export default function Landing() {
       {/* Top bar */}
       <header className="relative z-10 px-6 py-5 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="w-10 h-10 rounded-lg bg-red-600 flex items-center justify-center shadow-lg shadow-red-600/30">
+          <div className="w-10 h-10 rounded-lg bg-bronze-600 flex items-center justify-center shadow-lg shadow-bronze-600/30">
             <Car className="w-6 h-6 text-white" />
           </div>
           <div>
@@ -51,8 +51,8 @@ export default function Landing() {
         {/* Left brand panel */}
         <section className="relative flex-1 px-6 py-10 lg:py-20 lg:px-16 flex flex-col justify-center overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute -top-20 -left-20 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 right-0 w-80 h-80 bg-red-600/5 rounded-full blur-3xl" />
+            <div className="absolute -top-20 -left-20 w-96 h-96 bg-bronze-600/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-0 w-80 h-80 bg-bronze-600/5 rounded-full blur-3xl" />
             <div
               className="absolute inset-0 opacity-[0.03]"
               style={{
@@ -64,14 +64,14 @@ export default function Landing() {
           </div>
 
           <div className="relative z-10 max-w-xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-600/10 border border-red-600/30 text-red-400 text-xs font-semibold mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-bronze-600/10 border border-bronze-600/30 text-bronze-400 text-xs font-semibold mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-bronze-500 animate-pulse" />
               SCAN QR · ACCESS YOUR SERVICE RECORDS
             </div>
             <h1 className="font-display text-5xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight">
               Your vehicle.
               <br />
-              <span className="text-red-600">Every record.</span>
+              <span className="text-bronze-600">Every record.</span>
               <br />
               One scan away.
             </h1>
@@ -87,7 +87,7 @@ export default function Landing() {
                 { icon: <Award className="w-5 h-5" />, label: "Loyalty Rewards" },
               ].map((f) => (
                 <div key={f.label} className="flex flex-col items-center text-center gap-2 p-3 rounded-xl bg-white/[0.02] border border-neutral-800">
-                  <div className="text-red-500">{f.icon}</div>
+                  <div className="text-bronze-500">{f.icon}</div>
                   <span className="text-xs text-neutral-400 font-medium">{f.label}</span>
                 </div>
               ))}
@@ -116,7 +116,7 @@ export default function Landing() {
               <button
                 onClick={() => setMode("customer")}
                 className={`py-2 text-sm font-semibold rounded-md transition flex items-center justify-center gap-1.5 ${
-                  mode === "customer" ? "bg-red-600 text-white" : "text-neutral-400 hover:text-white"
+                  mode === "customer" ? "bg-bronze-600 text-white" : "text-neutral-400 hover:text-white"
                 }`}
               >
                 <User className="w-3.5 h-3.5" /> Customer
@@ -124,7 +124,7 @@ export default function Landing() {
               <button
                 onClick={() => setMode("admin")}
                 className={`py-2 text-sm font-semibold rounded-md transition flex items-center justify-center gap-1.5 ${
-                  mode === "admin" ? "bg-red-600 text-white" : "text-neutral-400 hover:text-white"
+                  mode === "admin" ? "bg-bronze-600 text-white" : "text-neutral-400 hover:text-white"
                 }`}
               >
                 <Shield className="w-3.5 h-3.5" /> Admin
@@ -154,7 +154,7 @@ export default function Landing() {
               </Field>
 
               {error && (
-                <div className="text-sm text-red-400 bg-red-950/40 border border-red-900/50 rounded-lg px-3 py-2">
+                <div className="text-sm text-bronze-400 bg-bronze-950/40 border border-bronze-900/50 rounded-lg px-3 py-2">
                   {error}
                 </div>
               )}

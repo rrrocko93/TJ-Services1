@@ -59,7 +59,7 @@ export default function CustomerPortal() {
     return (
       <div className="min-h-screen flex items-center justify-center p-6">
         <Card className="p-6 max-w-md text-center">
-          <p className="text-red-400 mb-4">{error}</p>
+          <p className="text-bronze-400 mb-4">{error}</p>
           <Button onClick={logout}>Back to Login</Button>
         </Card>
       </div>
@@ -69,7 +69,7 @@ export default function CustomerPortal() {
   if (!vehicles || !services || !loyalty) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Spinner className="w-8 h-8 text-red-600" />
+        <Spinner className="w-8 h-8 text-bronze-600" />
       </div>
     );
   }
@@ -82,7 +82,7 @@ export default function CustomerPortal() {
       <header className="sticky top-0 z-30 backdrop-blur-xl bg-black/60 border-b border-neutral-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-lg bg-red-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-lg bg-bronze-600 flex items-center justify-center">
               <Car className="w-5 h-5 text-white" />
             </div>
             <div>
@@ -128,7 +128,7 @@ export default function CustomerPortal() {
         <Card className="p-5 sm:p-6 animate-fade-in-up" hover>
           <div className="flex items-start justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2 text-red-500 text-xs font-semibold uppercase tracking-wider mb-1">
+              <div className="flex items-center gap-2 text-bronze-500 text-xs font-semibold uppercase tracking-wider mb-1">
                 <Award className="w-4 h-4" /> Loyalty Program
               </div>
               <h2 className="font-display text-2xl font-bold uppercase">
@@ -161,7 +161,7 @@ export default function CustomerPortal() {
             {Array.from({ length: loyalty.target }).map((_, i) => (
               <div key={i} className="flex-1 h-2 rounded-full overflow-hidden bg-neutral-800">
                 <div
-                  className={`h-full ${i < loyalty.completed ? "bg-red-600" : "bg-transparent"}`}
+                  className={`h-full ${i < loyalty.completed ? "bg-bronze-600" : "bg-transparent"}`}
                 />
               </div>
             ))}
@@ -170,13 +170,13 @@ export default function CustomerPortal() {
 
         {/* Next recommended service */}
         {upcomingRecommendation?.recommendations && (
-          <Card className="p-5 border-red-900/40 bg-gradient-to-br from-red-950/30 to-transparent animate-fade-in-up">
+          <Card className="p-5 border-bronze-900/40 bg-gradient-to-br from-bronze-950/30 to-transparent animate-fade-in-up">
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-lg bg-red-600/20 flex items-center justify-center shrink-0">
-                <Bell className="w-5 h-5 text-red-400" />
+              <div className="w-10 h-10 rounded-lg bg-bronze-600/20 flex items-center justify-center shrink-0">
+                <Bell className="w-5 h-5 text-bronze-400" />
               </div>
               <div className="flex-1">
-                <div className="text-xs font-semibold text-red-400 uppercase tracking-wider">Next Recommended Service</div>
+                <div className="text-xs font-semibold text-bronze-400 uppercase tracking-wider">Next Recommended Service</div>
                 <p className="text-sm text-neutral-200 mt-1">{upcomingRecommendation.recommendations}</p>
                 <div className="flex flex-wrap gap-3 mt-2 text-xs text-neutral-400">
                   {upcomingRecommendation.next_service_date && (
@@ -251,7 +251,7 @@ export default function CustomerPortal() {
                   const vehicle = vehicles.find((v) => v.id === s.vehicle_id);
                   return (
                     <div key={s.id} className="relative animate-fade-in-up">
-                      <div className="absolute -left-[18px] top-4 w-3 h-3 rounded-full bg-red-600 ring-4 ring-black" />
+                      <div className="absolute -left-[18px] top-4 w-3 h-3 rounded-full bg-bronze-600 ring-4 ring-black" />
                       <Card className="p-4" hover>
                         <div className="flex items-start justify-between gap-3">
                           <div className="flex-1 min-w-0">
@@ -325,7 +325,7 @@ export default function CustomerPortal() {
 function StatCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: React.ReactNode }) {
   return (
     <Card className="p-4 animate-fade-in-up">
-      <div className="flex items-center gap-2 text-red-500 mb-1.5">{icon}</div>
+      <div className="flex items-center gap-2 text-bronze-500 mb-1.5">{icon}</div>
       <div className="text-xs text-neutral-500 uppercase tracking-wider">{label}</div>
       <div className="font-display text-xl font-bold mt-0.5">{value}</div>
     </Card>
@@ -335,7 +335,7 @@ function StatCard({ icon, label, value }: { icon: React.ReactNode; label: string
 function SectionTitle({ icon, title, count }: { icon: React.ReactNode; title: string; count?: number }) {
   return (
     <div className="flex items-center gap-2.5 mb-3">
-      <div className="text-red-500">{icon}</div>
+      <div className="text-bronze-500">{icon}</div>
       <h2 className="font-display text-xl font-bold uppercase tracking-wide">{title}</h2>
       {count != null && <span className="text-xs text-neutral-600">({count})</span>}
     </div>
