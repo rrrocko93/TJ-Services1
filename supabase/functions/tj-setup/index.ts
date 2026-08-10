@@ -1,6 +1,5 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2.57.4";
-import bcrypt from "npm:bcryptjs@2.4.3";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -33,10 +32,18 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    const password_hash = await bcrypt.hash("tjservices2024", 10);
+    const { data: hash, error: hashErr } = await supabase.rpc("hash_secret", {
+      p_secret: "tjservices2024",
+    });
+    if (hashErr || !hash) {
+      return new Response(JSON.stringify({ error: hashErr?.message || "Hashing failed" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
     const { error } = await supabase
       .from("admins")
-      .insert({ username: "admin", password_hash, display_name: "TJ Services Admin" });
+      .insert({ username: "admin", password_hash: hash, display_name: "TJ Services Admin" });
     if (error) {
       return new Response(JSON.stringify({ error: error.message }), {
         status: 500,
